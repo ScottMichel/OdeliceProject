@@ -5,11 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 //Importation des routes
-app.use(); //A remplir
-app.use(); //A remplir
 
 //Importation de la bibliothèque cors
-const cors = require ('cors');
+const cors = require('cors');
 
 //Creation de l'application
 const app = express();
@@ -28,7 +26,7 @@ app.use();
 app.use();
 
 //Gestion des erreurs
-app.use((err,req,res,next) =>{
+app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).json({
         success: false,
