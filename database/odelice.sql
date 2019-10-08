@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 
 --
 -- Base de données :  `odelice`
+DROP DATABASE IF EXISTS odelice;
+CREATE DATABASE odelice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 --
 
 -- --------------------------------------------------------
