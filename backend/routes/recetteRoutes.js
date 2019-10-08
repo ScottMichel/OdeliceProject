@@ -9,20 +9,32 @@ const connection = require('../connexionMysql')
 
 
 
-//Liste des recettes
+//Liste de toutes les recettes
 router.get("/", (req,res) => {
     connection.query('SELECT * FROM recette', (err, data) => {
         if(err){
             console.log(err);
             res.status(500).send("Impossible d'exécuter la requête");
-        } else { 
-            res.json(data) 
         }
             
         
     })
     
 });
+
+//Liste d'une seule recette
+router.get('/:id', (req, res, next) => {
+    connection.query('SELECT * FROM recette WHERE idRecette=?', [req.params.id],
+    (err,data) => {
+        if(err){
+            console.log(err);
+            res.status(500).send("Impossible d'exécuter la requête");
+        } else {
+            res.json(data)
+        };
+    })
+})
+
 
 
 //Exportation du routeur
