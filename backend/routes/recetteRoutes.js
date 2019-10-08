@@ -15,11 +15,27 @@ router.get("/", (req,res) => {
         if(err){
             console.log(err);
             res.status(500).send("Impossible d'exécuter la requête");
+        } else{
+            res.json(data);
         }
-            
-        
     })
     
+});
+
+//Recherche une recette dans la barre url
+router.get('/search', (req,res) => {
+    
+    connection.query("SELECT * FROM recette WHERE titre LIKE ?", ['%' + req.query.titre + '%'],
+    (err, data) => {
+        //console.log('callback');
+        if(err){
+            console.log(err);
+            res.status(500).send("Impossible d'exécuter la requête");
+        } else {
+            //console.log("data");
+            res.json(data)
+        }
+    });
 });
 
 //Liste d'une seule recette
@@ -34,6 +50,8 @@ router.get('/:id', (req, res, next) => {
         };
     })
 })
+
+
 
 
 
