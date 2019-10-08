@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 //Importation des routes
+const recetteRoutes = require('./routes/recetteRoutes')
 
 //Importation de la bibliothèque cors
 const cors = require('cors');
@@ -20,10 +21,7 @@ app.use(bodyParser.urlencoded());
 app.use(cors());
 
 //Déclaration des routes dans des middleware
-app.use();
-app.use();
-app.use();
-app.use();
+app.use('/recette', recetteRoutes);
 
 //Gestion des erreurs
 app.use((err, req, res, next) => {
