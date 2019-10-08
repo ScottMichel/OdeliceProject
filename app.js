@@ -5,8 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 //Importation des routes
-app.use(); //A remplir
-app.use(); //A remplir
+
 
 //Importation de la bibliothèque cors
 const cors = require ('cors');
