@@ -15,7 +15,6 @@ router.get('/test', (req, res) => {
             console.log(data)
             res.json(data);
         }
-
     })
 });
 
