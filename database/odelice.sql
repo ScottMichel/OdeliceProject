@@ -12,16 +12,12 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Base de données :  `odelice`
 DROP DATABASE IF EXISTS odelice;
 CREATE DATABASE odelice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE Odelice;
 --
 
 -- --------------------------------------------------------
@@ -32,7 +28,7 @@ CREATE DATABASE odelice DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 CREATE TABLE `categorie` (
   `idCategorie` int(10) UNSIGNED NOT NULL,
-  `nom` varchar(50) CHARACTER SET latin1 NOT NULL
+  `nom` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -43,10 +39,11 @@ CREATE TABLE `categorie` (
 
 CREATE TABLE `commentaire` (
   `idcommentaire` int(10) UNSIGNED NOT NULL,
-  `texte` text CHARACTER SET latin1 NOT NULL,
-  `auteur` varchar(45) CHARACTER SET latin1 NOT NULL,
-  `email` varchar(45) CHARACTER SET latin1 NOT NULL,
-  `note` varchar(45) CHARACTER SET latin1 NOT NULL
+  `texte` text NOT NULL,
+  `auteur` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `note` varchar(45) NOT NULL,
+  `idRecette` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -57,7 +54,7 @@ CREATE TABLE `commentaire` (
 
 CREATE TABLE `ingredient` (
   `idIngredient` int(10) UNSIGNED NOT NULL,
-  `NomIngredient` varchar(45) CHARACTER SET latin1 DEFAULT NULL
+  `NomIngredient` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -68,7 +65,7 @@ CREATE TABLE `ingredient` (
 
 CREATE TABLE `ingredient_recette` (
   `idRecette` int(10) UNSIGNED NOT NULL,
-  `Quantite` varchar(50) CHARACTER SET latin1 NOT NULL,
+  `Quantite` varchar(50) NOT NULL,
   `idIngredient` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -80,12 +77,12 @@ CREATE TABLE `ingredient_recette` (
 
 CREATE TABLE `recette` (
   `idRecette` int(10) UNSIGNED NOT NULL,
-  `Titre` varchar(50) CHARACTER SET armscii8 NOT NULL,
-  `Cuisson` varchar(50) CHARACTER SET armscii8 DEFAULT NULL,
-  `Repos` varchar(50) CHARACTER SET armscii8 DEFAULT NULL,
-  `Difficulté` varchar(50) CHARACTER SET armscii8 NOT NULL,
-  `Image` varchar(255) CHARACTER SET armscii8 NOT NULL,
-  `Preparation` text CHARACTER SET armscii8 NOT NULL
+  `Titre` varchar(50) NOT NULL,
+  `Cuisson` varchar(50) DEFAULT NULL,
+  `Repos` varchar(50) DEFAULT NULL,
+  `Difficulte` varchar(50) NOT NULL,
+  `Image` varchar(255) NOT NULL,
+  `Preparation` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -107,7 +104,7 @@ CREATE TABLE `recette_tag` (
 
 CREATE TABLE `tag` (
   `idTag` int(10) UNSIGNED NOT NULL,
-  `nom` varchar(45) CHARACTER SET latin1 NOT NULL
+  `nom` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -118,8 +115,8 @@ CREATE TABLE `tag` (
 
 CREATE TABLE `theme` (
   `idTheme` int(10) UNSIGNED NOT NULL,
-  `nom` varchar(50) CHARACTER SET latin1 NOT NULL,
-  `famille` varchar(50) CHARACTER SET latin1 NOT NULL
+  `nom` varchar(50) NOT NULL,
+  `famille` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -248,7 +245,7 @@ ALTER TABLE `categorie`
 -- Contraintes pour la table `commentaire`
 --
 ALTER TABLE `commentaire`
-  ADD CONSTRAINT `commentaireToRecette` FOREIGN KEY (`idcommentaire`) REFERENCES `recette` (`idRecette`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `commentaireToRecette` FOREIGN KEY (`idRecette`) REFERENCES `recette` (`idRecette`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `ingredient_recette`
@@ -271,7 +268,3 @@ ALTER TABLE `theme_recette`
   ADD CONSTRAINT `recetteToTheme` FOREIGN KEY (`idRecette`) REFERENCES `recette` (`idRecette`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `themeToRecette` FOREIGN KEY (`idTheme`) REFERENCES `theme` (`idTheme`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
