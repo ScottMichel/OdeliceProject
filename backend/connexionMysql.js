@@ -9,5 +9,5 @@ const connexion = mysql.createConnection({
     password: ""
 });
 
-
+connexion.query('USE odelice');
 module.exports = connexion;
